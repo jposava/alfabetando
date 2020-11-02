@@ -1,13 +1,22 @@
-const http = require('http');
-const host = '192.168.0.105';
-const port = 3000;
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const server = express();
 
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type','text/plain');
-    res.end('Ola mundo \n meu primeiro script');
-});
+const url = process.env.DATABASE_STRING;
 
-server.listen(port, host, () => {
-    console.log(`Server rodando em http://${host}:${port}`);
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
+
+const db = mongoose.connection;
+
+db.on('error', (err)=> console.log(err));
+db.once('open', ()=> console.log('Database Connected'));
+
+server.use(express.json());
+
+const rankingNames = require('./Routes/rankingNames');
+server.use('/rankingNames', rankingNames);
+
+server.listen(3000, () => {
+    console.log('API ONLINE');
 });
