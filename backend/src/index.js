@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const server = express();
 
@@ -13,10 +14,11 @@ db.on('error', (err)=> console.log(err));
 db.once('open', ()=> console.log('Database Connected'));
 
 server.use(express.json());
+server.use(cors());
 
 const rankingNames = require('./Routes/rankingNames');
 server.use('/rankingNames', rankingNames);
 
-server.listen(3000, () => {
+server.listen(3333, () => {
     console.log('API ONLINE');
 });

@@ -7,11 +7,11 @@ const namesSchema = new mongoose.Schema({
     },
     position:{
         type: Number,
-        required: true
+        required: false
     },
     time:{
-        type: Number,
-        required: true
+        type: String,
+        required: false
     }
 });
 

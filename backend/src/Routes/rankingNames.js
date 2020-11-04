@@ -23,7 +23,7 @@ router.get('/:id', async (req, res)=>{
 });
 
 //CADASTRA UM NOME
-router.post('/', async (req, res)=>{
+router.post('/newPlayer', async (req, res)=>{
     const name = new RankingName({
         name: req.body.name,
         position: req.body.position,
